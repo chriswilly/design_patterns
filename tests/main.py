@@ -4,16 +4,13 @@ import sys
 import pathlib
 import argparse
 import IPython
-sys.path.append(pathlib.Path(__file__).resolve().parents[1].__str__())
-print(sys.path)
+sys.path.append(pathlib.Path(__file__).resolve().parents[2].__str__())
+# print(sys.path)
+# IPython.embed()
 
-# if __package__==None:
-#     __package__='design_patterns'
-
-from design_patterns.data_science import fft
-from design_patterns.data_science import graph_laplacian as gl
-
-from design_patterns.sql import cte_example
+# this package
+import design_patterns.data_science as ds
+from design_patterns.sql import cte_example as sql
 from design_patterns.lib import utils
 
 
@@ -28,6 +25,7 @@ def main(args:argparse.Namespace)->None:
         )
     logger.info(f'{args.env} maps to config params\n{config}')
     print(sys.path[0])
+    print(sys.path[-1])
 
     IPython.embed()
 

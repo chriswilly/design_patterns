@@ -1,0 +1,6 @@
+ipython==8.7.0
+numpy==1.23.4
+pandas==1.5.1
+scipy==1.9.3
+setuptools==65.5.0
+SQLAlchemy==1.4.45
