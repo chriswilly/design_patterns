@@ -1,0 +1,67 @@
+# project specific
+
+# remember no passwords in this json, use this for env path roots, plot flags, etc, if db make a specific dbconfig.json:
+!user_config.json
+# scrub passwords but allow template
+config/*
+*.json
+!template.json
+*.env
+
+
+**/.ipynb_checkpoints/*
+
+*/data/*
+*/logs/*
+*/plots/*
+plots/*
+
+data/*
+*.zip
+*.tar.gz
+*.tar
+*.dat
+*.npz
+*.csv
+
+# office docs, use explicit add "file.pptx" --force
+*.xlsx
+*.docx
+*.pptx
+*.xls
+*.doc
+*.ppt
+
+# images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.mov
+*.mpv4
+*.wav
+*.aiff
+
+
+# python binaries
+*/__pycache__/**
+*.pyc
+
+*/*.cpython-39.pyc
+*.cpython-39.pyc    
+
+*.sublime-workspace
+# log files
+logs/*
+*.log
+
+# temp files
+*/~$*.xlsx
+
+# software & manual packages
+software/
+
+
+# mac os filesystem
+.DS_store
+
