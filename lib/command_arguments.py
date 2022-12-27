@@ -10,13 +10,15 @@ def main(args:argparser.Namespace)->None:
     """
     logger,_ = utils.start_log(name='test',destination=args.logs)
     logger.info(f'input params\n{vars(args)}')
+    config = utils.get_config(
+        configpath=args.config,
+        env=utils.Environment[args.env]
+        )
+    logger.info(f'{args.env} maps to config params\n{config}')
 
 
 if __name__=='__main__':
     """
-    look at data root dir, 
-    if not reachable call tkinker dialog input for path,
-    enumerate root contents of file ext key and feed to main process
     """
     parser = argparse.ArgumentParser(description='Data Directory & Config Path:')
 

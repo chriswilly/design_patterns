@@ -1,0 +1,13 @@
+{
+    "development":{
+    "author":"Michael Willy"
+    ,"date":"December 27, 2022"
+    ,"project description":[
+        "General use signal processing tools for spectral methods",
+    "FFT is a 1D frequency transform wrapper on Numpy FFT",
+    "Graph Laplacian uses Numpy and Scipy to find connected or disconnected graph clusters with eigenvector manifolds",
+    "CTE example is a demo to construct a database connection object and query a common table expression join"
+    ]
+    ,"tags":["Graph Laplacian","Eigenvalues","FFT","Fourier","SQL","Numpy","Scipy","Common Table Expression","SQL Alchemy","Spectral","Semisupervised Learning","Clustering"]
+    }
+}

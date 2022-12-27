@@ -4,9 +4,11 @@
 import sys
 import logging
 import pathlib
+import shutil
 import datetime
 import json
 from enum import Enum
+
 
 class Environment(Enum):
     """
@@ -69,6 +71,82 @@ def start_log(
     logger.addHandler(handler)
 
     return logger, log_file
+
+
+
+def archive_folder(source:pathlib.Path,root:pathlib.Path)->pathlib.Path:
+    """
+    zip folder to archive
+    """
+    current_date = time_string()
+    destination = root/f'{source.stem}_{current_date}'
+
+    try:
+        zip_file = shutil.make_archive(destination,'zip',source)
+
+        return pathlib.Path(zip_file).resolve()
+
+    except Exception as error:
+        raise Exception(f'Error performing archive operation from \n{source} \nto {root}') from error
+
+
+def delete_folder(target_folder:pathlib.Path,archive_success:bool=False)->bool:
+    """
+    remove folder items and remove directory to clean up,
+    redundantly checked before function call & internally verified if archive performed
+    """
+
+    if not archive_success:
+        raise Exception(f'Source directory {target_folder} not successfully archived and cannot be deleted')
+
+    else:
+        for item in target_folder.glob('*'):
+            file_path = item.resolve()
+            try:
+                if file_path.is_file() or file_path.is_symlink():
+                    os.unlink(file_path)
+
+                elif file_path.is_dir():
+                    shutil.rmtree(file_path)
+
+            except Exception as error:
+                raise Exception(f'Failed to delete\n{file_path.__str__()}') from error
+
+        try:
+            target_folder.rmdir()
+
+        except Exception as error:
+            raise Exception(f'Failed to terminally delete {target_folder.__str__()}.') from error
+
+        return True
+
+
+# TODO decide if want pandas as import
+# def save_data(
+#     data:pd.DataFrame,
+#     target:pathlib.Path,
+#     append:bool = True
+#     )->pathlib.Path:
+#     """
+#     Intend to stack several files into common csv
+#     Choose to keep index
+#     """
+#     target = target.resolve()
+#     target.parent.mkdir(parents=True, exist_ok=True)
+#
+#     try:
+#         if target.exists() & append:
+#             data.to_csv(target, mode='a', header=False)
+#         else:
+#             data.to_csv(target)
+#
+#     except Exception as error:
+#         # in event file is open or locked
+#         print(f'Unable to write to {target.stem}, add timestamp')
+#         new_target = target.stem +'_'+ time_string() +'.csv'
+#         data.to_csv(target.parent/new_target)
+#
+#     return target
 
 
 if __name__=='__main__':

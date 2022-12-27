@@ -2,7 +2,6 @@
 
 """
 from __future__ import annotations
-import IPython
 import numpy as np
 import numpy.matlib
 import scipy.spatial
@@ -10,24 +9,16 @@ from dataclasses import (
     dataclass,
     field
     )
+import IPython
 
 np.set_printoptions(precision=1, threshold=80)
-
-
-@dataclass
-class Dataset:
-    """
-    """
-    name: str
-    x: pd.DataFrame
-    y: pd.DataFrame = None
 
 
 @dataclass
 class GraphLaplacian:
     """
     """
-    data: Dataset
+    data: np.ndarray
     distance_ratio: float
 
     # sigma or radial threshold
@@ -74,7 +65,7 @@ class GraphLaplacian:
         """
         compute eigen decomposition on weighted distance matrix
         """
-        self.distance = scipy.spatial.distance_matrix(self.data.x, self.data.x)
+        self.distance = scipy.spatial.distance_matrix(self.data, self.data)
 
         self.length_scale = self.distance_ratio*self.distance.mean()
         # be careful about t**2 
@@ -116,7 +107,7 @@ def test():
     # rng = np.random.default_rng()
 
     test = GraphLaplacian(
-        data=Dataset(x=raw,name='test'),
+        data=raw,
         distance_ratio=resolution
         )
     indx = (test.eigval<=5e-5)
