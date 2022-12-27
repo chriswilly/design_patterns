@@ -29,8 +29,8 @@ def create_connection(vendor:str,credentials:dict)->sqlalchemy.engine.Connection
 def sql_format(statement:str)->str:
     """
     """
-    return ' '.join([s.strip() for s in statement.split('\n')]).strip()
-
+    # return ' '.join([s.strip() for s in statement.split('\n')]).strip()
+    return ' '.join([' '.join([word for word in line.split()]) for line in statement.splitlines()]).strip()
 
 def sql_question(bind_variable:str,db:sqlalchemy.engine.Connection)->tuple:
     """
