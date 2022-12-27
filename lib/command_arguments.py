@@ -5,7 +5,7 @@ import argparse
 
 import utils
 
-def main(args:argparser.Namespace)->None:
+def main(args:argparse.Namespace)->None:
     """
     """
     logger,_ = utils.start_log(name='test',destination=args.logs)
