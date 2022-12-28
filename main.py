@@ -3,9 +3,10 @@
 import sys
 import pathlib
 import argparse
+import numpy as np
 import IPython
+
 sys.path.append(pathlib.Path(__file__).resolve().parents[1].__str__())
-print(sys.path[-1])
 
 # this package
 import design_patterns.data_science as ds
@@ -13,10 +14,12 @@ from design_patterns.sql import cte_example as sql
 from design_patterns.lib import utils
 
 
+
 def fft_test()->bool:
-	"""
-	"""
+    """
+    """
     frequency = (11,19,37)
+
     amplitude = (5e-2,4e-1,3e-3)
 
     array_length = 1_042 # row count
@@ -28,7 +31,7 @@ def fft_test()->bool:
         print(f'{amp}*cos(2*pi*{freq})')
         signal += amp*np.cos(time_series*freq*2*np.pi)
 
-    test = ds.fft.FFT(
+    test = ds.FFT(
         data_series = signal,
         time_series = time_series
         )
@@ -40,16 +43,16 @@ def fft_test()->bool:
 
 
 def graph_laplacian_test()->bool:
-	"""
-	"""
-    raw = np.zeros([6,6])
+    """
+    """
+    raw = np.zeros([9,9])
     raw[:3,:3] = -1
     raw[-3:,-3:] = 1
     raw[-3:,:3] = 2
     resolution = 0.1
     # rng = np.random.default_rng()
 
-    test = GraphLaplacian(
+    test = ds.GraphLaplacian(
         data=raw,
         distance_ratio=resolution
         )
