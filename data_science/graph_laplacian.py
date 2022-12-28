@@ -2,6 +2,7 @@
 
 """
 from __future__ import annotations
+import IPython
 import numpy as np
 import numpy.matlib
 import scipy.spatial
@@ -9,7 +10,6 @@ from dataclasses import (
     dataclass,
     field
     )
-import IPython
 
 np.set_printoptions(precision=1, threshold=80)
 
