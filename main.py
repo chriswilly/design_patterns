@@ -15,9 +15,9 @@ from lib import utils
 def fft_test()->bool:
     """
     """
-    frequency = (11,19,37)
+    frequency = (5,22,47)
 
-    amplitude = (5e-2,4e-1,3e-3)
+    amplitude = (5e-1,4e-1,3e-1)
 
     array_length = 1_042 # row count
     time_limit = 10.1    # t_max s
@@ -35,11 +35,11 @@ def fft_test()->bool:
         time_series = time_series
         )
 
-    indx = ds.peak_finder(curve=test.spectral_coeffs,smoothing_factor=3)
-    # indx =(test.spectral_coeffs>=5*10**-3.5)
+    indx = ds.peak_finder(curve=np.abs(test.spectral_coeffs),smoothing_factor=33)
+    print(test.frequency_domain[indx])
+    assert test.frequency_domain[indx].size//2 == 3
 
-    print('***fft***')
-    IPython.embed()
+    return True
 
 
 def graph_laplacian_test()->bool:
@@ -60,7 +60,7 @@ def graph_laplacian_test()->bool:
     sum_zeros = np.sum(indx)
     print(f'{sum_zeros} distict groups given {resolution} relative distance')
 
-    assert sum_zeros==3
+    assert sum_zeros == 3
     return True
 
 
@@ -81,8 +81,9 @@ def main(args:argparse.Namespace)->None:
     logger.info(f'{test_GL} graph_laplacian_test Passed')
 
     test_FFT = fft_test()
+    logger.info(f'{test_FFT} fft_test Passed')
 
-    IPython.embed()
+    # IPython.embed()
 
 
 if __name__=='__main__':
