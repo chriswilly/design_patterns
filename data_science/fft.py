@@ -5,11 +5,6 @@ from __future__ import annotations
 import IPython
 import logging
 import numpy as np
-from scipy.ndimage import gaussian_filter1d
-from scipy.signal import (
-    find_peaks_cwt,
-    find_peaks
-    )
 
 from dataclasses import (
     dataclass,
@@ -120,19 +115,6 @@ class FFT:
         temp_array[indx] = np.abs(self.spectral_coeffs[indx])
         self.spectral_cdf = temp_array.cumsum()/temp_array.sum()
 
-
-def peak_finder(
-    curve:np.ndarray,
-    smoothing_factor:float=13.0,
-    )->np.ndarray:
-    """
-    """
-    peak_width = np.arange(1,20) #histogram peak width range in 1D plot
-    new_curve = gaussian_filter1d(curve,sigma=smoothing_factor)
-
-    indx = find_peaks_cwt(new_curve,peak_width)[::-1]
-    # indx = find_peaks(new_curve,height=np.max(curve)/3)
-    return indx
 
 
 def test():

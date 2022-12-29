@@ -6,13 +6,10 @@ import argparse
 import numpy as np
 import IPython
 
-sys.path.append(pathlib.Path(__file__).resolve().parents[1].__str__())
-
 # this package
-import design_patterns.data_science as ds
-from design_patterns.sql import cte_example as sql
-from design_patterns.lib import utils
-
+import data_science as ds
+from sql import cte_example as sql
+from lib import utils
 
 
 def fft_test()->bool:
@@ -25,8 +22,10 @@ def fft_test()->bool:
     array_length = 1_042 # row count
     time_limit = 10.1    # t_max s
 
-    time_series   = time_limit/(array_length-1)*np.arange(0,array_length)
+    time_series   = np.linspace(0,time_limit,array_length)
+
     signal = np.zeros(time_series.shape)
+
     for freq,amp in zip(frequency,amplitude):
         print(f'{amp}*cos(2*pi*{freq})')
         signal += amp*np.cos(time_series*freq*2*np.pi)
@@ -36,7 +35,8 @@ def fft_test()->bool:
         time_series = time_series
         )
 
-    indx =(test.spectral_coeffs>=5*10**-3.5)
+    indx = ds.peak_finder(curve=test.spectral_coeffs,smoothing_factor=3)
+    # indx =(test.spectral_coeffs>=5*10**-3.5)
 
     print('***fft***')
     IPython.embed()
